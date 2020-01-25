@@ -1,6 +1,7 @@
-# Pandas-Data-Science-Tasks
+# Pandas and NetworkX Data Science Tasks
 Set of real world data science tasks completed using the Python Pandas library.
 
+## Disclaimer
 Original dataset, questions and part of this README.md file froked from: KeithGalli/Pandas-Data-Science-Tasks.
 
 Check out Keith's first video on Pandas: <br/>
