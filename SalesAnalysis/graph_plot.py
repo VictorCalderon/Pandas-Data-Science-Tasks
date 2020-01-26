@@ -3,7 +3,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 
 
-def plot_corr_network(G, corr_tresh=-1, save_as=None, scaling=500):
+def plot_corr_network(G, corr_tresh=-1, save_as=None, size_data='weight', scaling=500):
     """ Plot a correlation CircusPlot Graph """
 
     # Create copy of G
@@ -17,10 +17,16 @@ def plot_corr_network(G, corr_tresh=-1, save_as=None, scaling=500):
     # Create a list of edges and weights
     edges, weights = zip(*nx.get_edge_attributes(H, 'weight').items())
 
-    # Degrees of each node as size in Graph
-    degrees = dict(nx.degree(H))
-    node_list, node_sizes = zip(*degrees.items())
-    node_size = tuple([(scaling * (1 + x)**2) for x in node_sizes])
+    if size_data == 'degree':
+        # Degrees of each node as size in Graph
+        degrees = dict(nx.degree(H))
+        node_list, node_sizes = zip(*degrees.items())
+        node_size = tuple([(scaling * (1 + x)**2) for x in node_sizes])
+
+    else:
+        # Create a list of nodes and size_data
+        node_list, sizes = zip(*nx.get_node_attributes(H, size_data).items())
+        node_size = tuple([scaling * x for x in sizes])
 
     # Scale weights to make them more visible
     weights = tuple([(1 + np.abs(x))**3 for x in weights])
@@ -59,5 +65,3 @@ def plot_corr_network(G, corr_tresh=-1, save_as=None, scaling=500):
 
     # Show Image
     plt.show()
-
-    return 0
